@@ -1,25 +1,61 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
 
-function App() {
+/*
+- [ ] Component nesting
+- [ ] Passing props
+  - [ ] props vs. destruct syntax
+  - [ ] defaults
+- [ ] Lifting state
+  - [ ] passing function as prop
+- [ ] One-way data flow
+- [ ] useState
+*/
+
+const Greeting = ({ name = "Human", lang = "ja", onClick }) => {
+  const greetings = {
+    en: "Hello",
+    ja: "こんにちは",
+  };
+
+  const handleClick = (e) => {
+    onClick && onClick(name);
+  };
+
+  return (
+    <p onClick={handleClick}>
+      {greetings[lang]}, {name}
+    </p>
+  );
+};
+
+const App = () => {
+  const [clickedName, setClickedName] = useState("nothing");
+
+  const people = [
+    {
+      name: "Conall",
+    },
+    {
+      name: "Curtis",
+    },
+    {
+      name: "Yukari",
+    },
+  ];
+
+  const handleClick = (name) => {
+    setClickedName(name);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <p>{clickedName} was clicked</p>
+      <Greeting lang="ja" name="Conall" onClick={handleClick} />
+      <Greeting lang="en" name="Curtis" onClick={handleClick} />
+      <Greeting name="Yukari" />
     </div>
   );
-}
+};
 
 export default App;
