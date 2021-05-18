@@ -35,18 +35,26 @@ const App = () => {
   const people = [
     {
       name: "Conall",
+      lang: "en",
     },
     {
       name: "Curtis",
+      lang: "en",
     },
     {
       name: "Yukari",
+      lang: "ja",
     },
   ];
 
   const handleClick = (name) => {
     setClickedName(name);
   };
+
+  // Note: You can use .map to iterate over data and format as JSX
+  // people.map(person => {
+  //   return <Greeting name={person.name} lang={person.lang} onClick={onClick} />
+  // });
 
   return (
     <div className="App">
