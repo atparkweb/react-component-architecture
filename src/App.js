@@ -1,67 +1,82 @@
-import React, { useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import "./App.css";
 
 /*
-- [ ] Component nesting
-- [ ] Passing props
-  - [ ] props vs. destruct syntax
-  - [ ] defaults
-- [ ] Lifting state
-  - [ ] passing function as prop
-- [ ] One-way data flow
-- [ ] useState
+- [ ] Use map to render list
+  - [ ] Set valid 'key' attribute for items
+- [ ] console log renders on components
+- [ ] useRef
+  - [ ] Make an Input/Add component
+  - [ ] implement onChange + useState
+  - [ ] refactor into useRef
+    - [ ] Add ref to input
+- [ ] useEffect + useRef for direct DOM interaction
+  - [ ] Make people array a state value
+  - [ ] define add handler
+  - [ ] Refactor out Add component
+    - [ ] Lift state
+- [ ] useCallback for reducing re-renders
 */
 
-const Greeting = ({ name = "Human", lang = "ja", onClick }) => {
+const Greeting = ({
+  name = "Human",
+  lang = "ja",
+  color = "black",
+  onClick,
+}) => {
   const greetings = {
     en: "Hello",
     ja: "こんにちは",
   };
 
+  console.log("Render Greeting");
+
   const handleClick = (e) => {
-    onClick && onClick(name);
+    onClick && onClick({ name, lang, color });
   };
 
   return (
     <p onClick={handleClick}>
-      {greetings[lang]}, {name}
+      {greetings[lang]}, <strong style={{ color }}>{name}</strong>
     </p>
   );
 };
 
 const App = () => {
-  const [clickedName, setClickedName] = useState("nothing");
+  const [clicked, setClicked] = useState({ name: "nothing" });
+
+  console.log("Render App");
+
+  const handleClick = (clicked) => {
+    setClicked(clicked);
+  };
 
   const people = [
     {
-      name: "Conall",
+      name: "Adam",
       lang: "en",
+      color: "orange",
     },
     {
-      name: "Curtis",
+      name: "Axel",
       lang: "en",
+      color: "blue",
     },
     {
-      name: "Yukari",
-      lang: "ja",
+      name: "Blaze",
+      lang: "en",
+      color: "red",
     },
   ];
 
-  const handleClick = (name) => {
-    setClickedName(name);
-  };
-
-  // Note: You can use .map to iterate over data and format as JSX
-  // people.map(person => {
-  //   return <Greeting name={person.name} lang={person.lang} onClick={onClick} />
-  // });
-
   return (
     <div className="App">
-      <p>{clickedName} was clicked</p>
-      <Greeting lang="ja" name="Conall" onClick={handleClick} />
-      <Greeting lang="en" name="Curtis" onClick={handleClick} />
-      <Greeting name="Yukari" />
+      <p>
+        <strong>{clicked.name}</strong> was clicked
+      </p>
+      <Greeting name="Adam" lang="en" onClick={handleClick} />
+      <Greeting name="Axel" lang="en" onClick={handleClick} />
+      <Greeting name="Blaze" lang="en" onClick={handleClick} />
     </div>
   );
 };
