@@ -11,10 +11,7 @@ import "./App.css";
   - [ ] refactor into useRef
     - [ ] Add ref to input
 - [ ] useEffect + useRef for direct DOM interaction
-  - [ ] Make people array a state value
-  - [ ] define add handler
-  - [ ] Refactor out Add component
-    - [ ] Lift state
+  - [ ] Focus and clear input after adding
 - [ ] useCallback for reducing re-renders
 */
 
