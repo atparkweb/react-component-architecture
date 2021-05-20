@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./App.css";
 
 const Greeting = ({ person, onClick }) => {
@@ -44,7 +44,9 @@ const App = () => {
 
   const [clickedName, setClickedName] = useState("");
 
-  const [people, setPeople] = useState([]);
+  const [people, setPeople] = useState(() => {
+    return JSON.parse(localStorage.getItem("people")) || [];
+  });
 
   const handleClick = name => {
     setClickedName(name);
@@ -59,6 +61,10 @@ const App = () => {
     });
     setPeople(list);
   };
+
+  useEffect(() => {
+    localStorage.setItem("people", JSON.stringify(people));
+  }, [people]);
 
   return (
     <div className="App">
