@@ -7,8 +7,6 @@ const Greeting = ({ person, onClick }) => {
     ja: "こんにちは",
   };
 
-  console.log("Render Greeting", person.name);
-
   const handleClick = event => {
     onClick && onClick(person.name);
   };
@@ -21,8 +19,6 @@ const Greeting = ({ person, onClick }) => {
 };
 
 const Add = React.memo(({ onAdd }) => {
-  console.log("Render Add");
-
   const inputRef = useRef();
 
   const handleAdd = () => {
@@ -50,8 +46,6 @@ const App = () => {
 
   const [people, setPeople] = useState([]);
 
-  console.log("Render App");
-
   const handleClick = name => {
     setClickedName(name);
   };
@@ -63,7 +57,6 @@ const App = () => {
       lang: "en",
       objectID: currentID.current,
     });
-    console.log(list);
     setPeople(list);
   };
 
