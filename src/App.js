@@ -39,9 +39,6 @@ const Add = ({ onAdd }) => {
 };
 
 const App = () => {
-  // a local ref variable to auto increment unique ID
-  let currentID = useRef(3);
-
   const [clickedName, setClickedName] = useState("");
 
   const [people, setPeople] = useState(() => {
@@ -53,11 +50,10 @@ const App = () => {
   };
 
   const addPerson = name => {
-    currentID.current += 1;
     const list = people.concat({
       name,
       lang: "en",
-      objectID: currentID.current,
+      objectID: Date.now(),
     });
     setPeople(list);
   };
