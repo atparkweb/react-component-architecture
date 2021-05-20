@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import "./App.css";
 
 const Greeting = ({ person, onClick }) => {
