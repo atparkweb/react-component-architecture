@@ -1,20 +1,28 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./App.css";
 
-const Greeting = ({ person, onClick }) => {
+const Greeting = ({ person, onClick, onDelete }) => {
   const greetings = {
     en: "Hello",
     ja: "こんにちは",
+    es: "Hola",
   };
 
   const handleClick = event => {
     onClick && onClick(person.name);
   };
 
+  const handleDelete = event => {
+    onDelete && onDelete(person);
+  };
+
   return (
-    <p onClick={handleClick}>
-      {greetings[person.lang] || "Hi"}, <strong>{person.name}</strong>
-    </p>
+    <>
+      <p onClick={handleClick}>
+        {greetings[person.lang] || "Hi"}, <strong>{person.name}</strong>
+      </p>
+      <button onClick={handleDelete}>Delete</button>
+    </>
   );
 };
 
@@ -58,8 +66,14 @@ const App = () => {
     setPeople(list);
   };
 
+  const deletePerson = person => {
+    const list = people.filter(p => person.objectID !== p.objectID);
+    setPeople(list);
+  };
+
   useEffect(() => {
     localStorage.setItem("people", JSON.stringify(people));
+    return () => localStorage.clear();
   }, [people]);
 
   return (
@@ -73,7 +87,12 @@ const App = () => {
         ) : null}
       </p>
       {people.map(person => (
-        <Greeting key={person.objectID} person={person} onClick={handleClick} />
+        <Greeting
+          key={person.objectID}
+          person={person}
+          onClick={handleClick}
+          onDelete={deletePerson}
+        />
       ))}
     </div>
   );
