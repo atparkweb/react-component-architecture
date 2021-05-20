@@ -18,7 +18,7 @@ const Greeting = ({ person, onClick }) => {
   );
 };
 
-const Add = React.memo(({ onAdd }) => {
+const Add = ({ onAdd }) => {
   const inputRef = useRef();
 
   const handleAdd = () => {
@@ -36,7 +36,7 @@ const Add = React.memo(({ onAdd }) => {
       <button onClick={handleAdd}>Add</button>
     </div>
   );
-});
+};
 
 const App = () => {
   // a local ref variable to auto increment unique ID
